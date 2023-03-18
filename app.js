@@ -52,14 +52,60 @@ const cardArray = [
 cardArray.sort(() => 0.5 - Math.random())
 
 const grid = document.getElementById('grid')
+const result = document.getElementById('result')
+const move = document.getElementById('move')
+let score = 0
+let moveCount = 0
+let cardsChoosen = []
+let cardsChoosenId = []
+let cardsWon = []
 
 function createBoard(){
     for(let i = 0; i < cardArray.length; i++){
         const card = document.createElement('img')
         card.setAttribute('src', 'images/blank.png')
         card.setAttribute('data-id', i)
+        card.addEventListener('click', flipCard)
         grid.appendChild(card)
     }
+}
+
+function checkForMatch(){
+  const cards = document.querySelectorAll('img')
+  const optionOneId = cardsChoosenId[0]
+  const optionTwoId = cardsChoosenId[1]
+
+  if(optionOneId===optionTwoId){
+    cards[optionOneId].setAttribute('src', 'images/blank.png')   
+    cards[optionTwoId].setAttribute('src', 'images/blank.png')
+    alert('You have clicked the same image!')
+  }
+  else if(cardsChoosen[0]===cardsChoosen[1]){
+    cards[optionOneId].setAttribute('src', 'images/white.png')
+    cards[optionTwoId].setAttribute('src', 'images/white.png')
+    cardsWon.push(cardArray[optionOneId])
+    result.textContent = score+=1
+  }
+  else{
+    cards[optionOneId].setAttribute('src', 'images/blank.png')   
+    cards[optionTwoId].setAttribute('src', 'images/blank.png')
+  }
+  cardsChoosenId = []
+  cardsChoosen = []
+  if(cardsWon.length===cards.length/2){
+    console.log('You won!')
+  }
+  move.textContent = moveCount+=1
+}
+
+function flipCard(){
+  let cardId = this.getAttribute('data-id')
+  cardsChoosen.push(cardArray[cardId].name)
+  cardsChoosenId.push(cardId)
+  this.setAttribute('src', cardArray[cardId].img)
+  if(cardsChoosen.length===2){
+    setTimeout(() => checkForMatch(), 1000)
+  }
 }
 
 createBoard()
