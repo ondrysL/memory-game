@@ -2,12 +2,66 @@
 
 body{
     font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.score__container{
+    display: flex;
+    justify-content: space-between;
+    padding: .8rem 2rem;
+}
+
+.score__container h3{
+    color: white;
+    font-size: 1.4rem;
+}
+
+.playground{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
 }
 
 #grid{
     width: 500px;
-    height: 300px;
     display: flex;
     flex-wrap: wrap;
     gap: 1.2rem;
+}
+
+.playground img{
+    border-radius: 15px;
+}
+
+.hide__img{
+    opacity: 0;
+}
+
+.find__text{
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    opacity: 0;
+}
+
+.win__text{
+    font-size: 0rem;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+}
+
+.find__visible{
+    opacity: 1;
+}
+
+.visible{
+    font-size: 4rem;
 }

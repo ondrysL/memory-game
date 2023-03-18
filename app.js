@@ -54,6 +54,8 @@ cardArray.sort(() => 0.5 - Math.random())
 const grid = document.getElementById('grid')
 const result = document.getElementById('result')
 const move = document.getElementById('move')
+const findText = document.getElementById('find__text')
+const winText = document.getElementById('win__text')
 let score = 0
 let moveCount = 0
 let cardsChoosen = []
@@ -81,10 +83,14 @@ function checkForMatch(){
     alert('You have clicked the same image!')
   }
   else if(cardsChoosen[0]===cardsChoosen[1]){
-    cards[optionOneId].setAttribute('src', 'images/white.png')
-    cards[optionTwoId].setAttribute('src', 'images/white.png')
+    cards[optionOneId].classList.add('hide__img')
+    cards[optionTwoId].classList.add('hide__img')
     cardsWon.push(cardArray[optionOneId])
     result.textContent = score+=1
+    findText.classList.add('find__visible')
+    setTimeout(() => {
+      findText.classList.remove('find__visible')
+    }, 1000)
   }
   else{
     cards[optionOneId].setAttribute('src', 'images/blank.png')   
@@ -93,7 +99,7 @@ function checkForMatch(){
   cardsChoosenId = []
   cardsChoosen = []
   if(cardsWon.length===cards.length/2){
-    console.log('You won!')
+    winText.classList.add('visible')
   }
   move.textContent = moveCount+=1
 }
@@ -104,8 +110,12 @@ function flipCard(){
   cardsChoosenId.push(cardId)
   this.setAttribute('src', cardArray[cardId].img)
   if(cardsChoosen.length===2){
-    setTimeout(() => checkForMatch(), 1000)
+    setTimeout(() => checkForMatch(), 500)
   }
+}
+
+function restart(){
+  createBoard()
 }
 
 createBoard()
